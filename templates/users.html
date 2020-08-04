@@ -1,0 +1,44 @@
+{% extends 'base.html'  %}
+{% block title %}Details{% endblock %}
+
+{% block content %}
+
+<body>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div>
+                <br>
+                <h1>{{the_user.first_name}} {{the_user.last_name}}</h1>
+                <h5>{{the_user.username}}</h5>
+                <h5>{{the_user.email}}</h5>
+                <ul>
+                    {% for feedback in the_user.feedback %}
+
+                    <li>
+                        {{ feedback.title }}
+                        {{ feedback.username}}
+                        <small>{{ feedback.content }}</small>
+                        {% if session['username'] == feedback.username %}
+                        <a href="/feedback/{{feedback.id}}" class="btn-sm btn-primary">
+                            Edit
+                        </a>
+                        <a href="/delete/{{feedback.id}}" class="btn-sm btn-danger">
+                            Delete
+                        </a>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                <p>
+                    <a href="/users/{{ the_user.username }}/feedback" class="btn btn-primary">
+                        Add feedback
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock %}
